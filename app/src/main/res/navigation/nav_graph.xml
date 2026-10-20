@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- app/src/main/res/navigation/nav_graph.xml -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +21,12 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splash_to_auth"
-            app:destination="@id/authPlaceholderFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_main"
+            app:destination="@id/mainFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -38,7 +42,12 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_noConnection_to_auth"
-            app:destination="@id/authPlaceholderFragment"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/noConnectionFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_noConnection_to_main"
+            app:destination="@id/mainFragment"
             app:popUpTo="@id/noConnectionFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -49,14 +58,91 @@
         tools:layout="@layout/fragment_onboarding">
         <action
             android:id="@+id/action_onboarding_to_auth"
-            app:destination="@id/authPlaceholderFragment"
+            app:destination="@id/welcomeFragment"
             app:popUpTo="@id/onboardingFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
-        android:id="@+id/authPlaceholderFragment"
-        android:name="com.example.drivenext.presentation.auth.AuthPlaceholderFragment"
-        tools:layout="@layout/fragment_auth_placeholder" />
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.drivenext.presentation.auth.welcome.WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcome_to_login"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_welcome_to_registration"
+            app:destination="@id/registration_graph" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.drivenext.presentation.auth.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_registration"
+            app:destination="@id/registration_graph" />
+        <action
+            android:id="@+id/action_login_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/registration_graph"
+        app:startDestination="@id/registerStep1Fragment">
+
+        <fragment
+            android:id="@+id/registerStep1Fragment"
+            android:name="com.example.drivenext.presentation.auth.register.RegisterStep1Fragment"
+            tools:layout="@layout/fragment_register_step1">
+            <action
+                android:id="@+id/action_step1_to_step2"
+                app:destination="@id/registerStep2Fragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/registerStep2Fragment"
+            android:name="com.example.drivenext.presentation.auth.register.RegisterStep2Fragment"
+            tools:layout="@layout/fragment_register_step2">
+            <action
+                android:id="@+id/action_step2_to_step3"
+                app:destination="@id/registerStep3Fragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/registerStep3Fragment"
+            android:name="com.example.drivenext.presentation.auth.register.RegisterStep3Fragment"
+            tools:layout="@layout/fragment_register_step3">
+            <action
+                android:id="@+id/action_step3_to_success"
+                app:destination="@id/registrationSuccessFragment"
+                app:popUpTo="@id/registration_graph"
+                app:popUpToInclusive="true" />
+        </fragment>
+    </navigation>
+
+    <fragment
+        android:id="@+id/registrationSuccessFragment"
+        android:name="com.example.drivenext.presentation.auth.register.RegistrationSuccessFragment"
+        tools:layout="@layout/fragment_registration_success">
+        <action
+            android:id="@+id/action_success_to_main"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.drivenext.presentation.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_welcome"
+            app:destination="@id/welcomeFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

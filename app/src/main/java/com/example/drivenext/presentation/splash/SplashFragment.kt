@@ -21,6 +21,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 StartDestination.NoConnection -> R.id.action_splash_to_noConnection
                 StartDestination.Onboarding -> R.id.action_splash_to_onboarding
                 StartDestination.Auth -> R.id.action_splash_to_auth
+                StartDestination.Main -> R.id.action_splash_to_main
             }
             findNavController().navigate(action)
         }

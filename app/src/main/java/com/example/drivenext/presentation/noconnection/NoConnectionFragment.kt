@@ -35,6 +35,7 @@ class NoConnectionFragment : Fragment(R.layout.fragment_no_connection) {
             val action = when (destination) {
                 StartDestination.Onboarding -> R.id.action_noConnection_to_onboarding
                 StartDestination.Auth -> R.id.action_noConnection_to_auth
+                StartDestination.Main -> R.id.action_noConnection_to_main
                 StartDestination.NoConnection -> return@collectWhenStarted
             }
             findNavController().navigate(action)

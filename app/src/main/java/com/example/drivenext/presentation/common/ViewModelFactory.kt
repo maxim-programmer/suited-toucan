@@ -3,6 +3,9 @@ package com.example.drivenext.presentation.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.drivenext.di.AppContainer
+import com.example.drivenext.presentation.auth.login.LoginViewModel
+import com.example.drivenext.presentation.auth.register.RegistrationViewModel
+import com.example.drivenext.presentation.main.MainViewModel
 import com.example.drivenext.presentation.noconnection.NoConnectionViewModel
 import com.example.drivenext.presentation.onboarding.OnboardingViewModel
 import com.example.drivenext.presentation.splash.SplashViewModel
@@ -17,6 +20,17 @@ class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.
             NoConnectionViewModel(container.resolveStartDestinationUseCase) as T
         modelClass.isAssignableFrom(OnboardingViewModel::class.java) ->
             OnboardingViewModel(container.completeOnboardingUseCase) as T
+        modelClass.isAssignableFrom(LoginViewModel::class.java) ->
+            LoginViewModel(
+                container.signInUseCase,
+                container.signInWithGoogleUseCase,
+                container.resetPasswordUseCase,
+                container.observeAuthStateUseCase
+            ) as T
+        modelClass.isAssignableFrom(RegistrationViewModel::class.java) ->
+            RegistrationViewModel(container.registerUserUseCase) as T
+        modelClass.isAssignableFrom(MainViewModel::class.java) ->
+            MainViewModel(container.signOutUseCase) as T
         else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
     }
 }

@@ -17,5 +17,86 @@
     <string name="onboarding_description_2">Арендуй автомобиль и наслаждайся его удобством</string>
     <string name="onboarding_title_3">Лучшие предложения</string>
     <string name="onboarding_description_3">Выбирай понравившееся среди сотен доступных автомобилей</string>
-    <string name="auth_placeholder">Вход и регистрация\nскоро появятся</string>
+
+    <string name="welcome_login">Войти</string>
+    <string name="welcome_register">Зарегистрироваться</string>
+
+    <string name="login_title">Войдите в аккаунт</string>
+    <string name="login_subtitle">Пожалуйста, введите свои данные</string>
+    <string name="login_email_label">Электронная почта</string>
+    <string name="login_email_hint">Введите электронную почту</string>
+    <string name="login_password_label">Пароль</string>
+    <string name="login_password_hint">Введите пароль</string>
+    <string name="login_forgot_password">Забыли пароль?</string>
+    <string name="login_google">Войти через Google</string>
+    <string name="login_google_icon_description">Google</string>
+    <string name="reset_password_title">Восстановление пароля</string>
+    <string name="reset_password_message">Мы отправили на вашу почту письмо со ссылкой для восстановления пароля.</string>
+
+    <string name="register_title">Создать аккаунт</string>
+    <string name="register_back_description">Назад</string>
+    <string name="register_next">Далее</string>
+    <string name="register_email_label">Электронная почта</string>
+    <string name="register_email_hint">Введите электронную почту</string>
+    <string name="register_password_label">Придумайте пароль</string>
+    <string name="register_password_hint">Введите пароль</string>
+    <string name="register_repeat_password_label">Повторите пароль</string>
+    <string name="register_repeat_password_hint">Повторите пароль</string>
+    <string name="register_agreement">Я согласен с условиями обслуживания и политикой конфиденциальности</string>
+
+    <string name="register_last_name_label">Фамилия</string>
+    <string name="register_last_name_hint">Введите фамилию</string>
+    <string name="register_first_name_label">Имя</string>
+    <string name="register_first_name_hint">Введите имя</string>
+    <string name="register_middle_name_label">Отчество</string>
+    <string name="register_middle_name_hint">Введите отчество</string>
+    <string name="register_birth_date_label">Дата рождения</string>
+    <string name="register_birth_date_hint">MM/DD/YYYY</string>
+    <string name="register_gender_label">Пол</string>
+    <string name="register_gender_male">Мужской</string>
+    <string name="register_gender_female">Женский</string>
+    <string name="calendar_icon_description">Выбрать дату</string>
+
+    <string name="avatar_description">Фото профиля</string>
+    <string name="avatar_add_description">Добавить фото профиля</string>
+    <string name="avatar_hint">Добавление фотографии поможет владельцам и арендаторам узнать друг друга, когда они будут забирать машину</string>
+    <string name="register_license_number_label">Номер водительского удостоверения</string>
+    <string name="register_license_number_hint">0000000000</string>
+    <string name="register_issue_date_label">Дата выдачи</string>
+    <string name="register_issue_date_hint">DD/MM/YYYY</string>
+    <string name="register_license_photo_label">Загрузите фото водительского удостоверения</string>
+    <string name="register_passport_photo_label">Загрузите фото паспорта</string>
+    <string name="photo_upload">Загрузить фото</string>
+    <string name="photo_selected">Фото выбрано</string>
+    <string name="photo_upload_icon_description">Загрузить фото</string>
+    <string name="photo_source_title">Добавить фото</string>
+    <string name="photo_source_gallery">Выбрать из галереи</string>
+    <string name="photo_source_camera">Сделать снимок</string>
+
+    <string name="picker_birth_date_title">Дата рождения</string>
+    <string name="picker_issue_date_title">Дата выдачи</string>
+
+    <string name="success_title">Пользуйтесь с удовольствием</string>
+    <string name="success_icon_description">Регистрация завершена</string>
+    <string name="success_congratulations">Поздравляем</string>
+    <string name="success_message">Вы успешно зарегистрировались. Обработка ваших персональных данных занимает некоторое время. Спасибо за ожидание.</string>
+
+    <string name="main_title">Главный экран</string>
+    <string name="main_logout">Выйти</string>
+
+    <string name="dialog_error_title">Ошибка</string>
+    <string name="dialog_ok">OK</string>
+
+    <string name="error_invalid_email">Введите корректный адрес электронной почты.</string>
+    <string name="error_password_short">Пароль должен содержать не менее 6 символов.</string>
+    <string name="error_passwords_mismatch">Пароли не совпадают.</string>
+    <string name="error_agreement_required">Необходимо согласиться с условиями обслуживания и политикой конфиденциальности.</string>
+    <string name="error_required_fields">Пожалуйста, заполните все обязательные поля.</string>
+    <string name="error_invalid_birth_date">Введите корректную дату рождения.</string>
+    <string name="error_license_number">Номер водительского удостоверения должен содержать 10 символов.</string>
+    <string name="error_invalid_issue_date">Введите корректную дату выдачи.</string>
+    <string name="error_photos_required">Пожалуйста, загрузите все необходимые фото.</string>
+    <string name="error_gallery_unavailable">Не удалось открыть галерею.</string>
+    <string name="error_camera_unavailable">Не удалось открыть камеру.</string>
+    <string name="error_photo_read">Не удалось отобразить выбранное фото.</string>
 </resources>

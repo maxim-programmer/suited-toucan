@@ -6,4 +6,7 @@
     <color name="text_primary">#FF1B1B1F</color>
     <color name="text_secondary">#FF3F3F4A</color>
     <color name="indicator_inactive">#FFE8EAF0</color>
+    <color name="input_stroke">#FFD9DCE4</color>
+    <color name="hint">#FF8E8E99</color>
+    <color name="error">#FFD32F2F</color>
 </resources>
