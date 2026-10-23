@@ -33,7 +33,13 @@ class AuthRepositoryImpl(private val clientProvider: () -> SupabaseClient) : Aut
     }
 
     override suspend fun currentUser(): AuthUser? = try {
-        clientProvider().auth.currentUserOrNull()?.let { AuthUser(it.id, it.email.orEmpty()) }
+        clientProvider().auth.currentUserOrNull()?.let { user ->
+            AuthUser(
+                id = user.id,
+                email = user.email.orEmpty(),
+                hasGoogle = user.identities.orEmpty().any { it.provider == GOOGLE_PROVIDER }
+            )
+        }
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -88,5 +94,6 @@ class AuthRepositoryImpl(private val clientProvider: () -> SupabaseClient) : Aut
 
     private companion object {
         const val INITIALIZATION_TIMEOUT_MS = 5000L
+        const val GOOGLE_PROVIDER = "google"
     }
 }

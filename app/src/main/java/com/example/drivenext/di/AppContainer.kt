@@ -4,21 +4,27 @@ import android.content.Context
 import com.example.drivenext.data.remote.AuthDeepLinkHandler
 import com.example.drivenext.data.remote.SupabaseClientFactory
 import com.example.drivenext.data.repository.AuthRepositoryImpl
+import com.example.drivenext.data.repository.CarRepositoryImpl
 import com.example.drivenext.data.repository.ConnectivityRepositoryImpl
 import com.example.drivenext.data.repository.ProfileRepositoryImpl
 import com.example.drivenext.data.repository.SettingsRepositoryImpl
 import com.example.drivenext.domain.repository.AuthRepository
+import com.example.drivenext.domain.repository.CarRepository
 import com.example.drivenext.domain.repository.ConnectivityRepository
 import com.example.drivenext.domain.repository.ProfileRepository
 import com.example.drivenext.domain.repository.SettingsRepository
 import com.example.drivenext.domain.usecase.CompleteOnboardingUseCase
+import com.example.drivenext.domain.usecase.GetCarsUseCase
+import com.example.drivenext.domain.usecase.GetCurrentProfileUseCase
 import com.example.drivenext.domain.usecase.ObserveAuthStateUseCase
 import com.example.drivenext.domain.usecase.RegisterUserUseCase
 import com.example.drivenext.domain.usecase.ResetPasswordUseCase
 import com.example.drivenext.domain.usecase.ResolveStartDestinationUseCase
+import com.example.drivenext.domain.usecase.SearchCarsUseCase
 import com.example.drivenext.domain.usecase.SignInUseCase
 import com.example.drivenext.domain.usecase.SignInWithGoogleUseCase
 import com.example.drivenext.domain.usecase.SignOutUseCase
+import com.example.drivenext.domain.usecase.UpdateAvatarUseCase
 import com.example.drivenext.presentation.common.ViewModelFactory
 import io.github.jan.supabase.SupabaseClient
 
@@ -40,6 +46,9 @@ class AppContainer(context: Context) {
     private val profileRepository: ProfileRepository =
         ProfileRepositoryImpl(appContext) { supabaseClient }
 
+    private val carRepository: CarRepository =
+        CarRepositoryImpl { supabaseClient }
+
     val authDeepLinkHandler = AuthDeepLinkHandler { supabaseClient }
 
     val resolveStartDestinationUseCase =
@@ -59,6 +68,14 @@ class AppContainer(context: Context) {
     val signOutUseCase = SignOutUseCase(authRepository)
 
     val registerUserUseCase = RegisterUserUseCase(authRepository, profileRepository)
+
+    val getCarsUseCase = GetCarsUseCase(carRepository)
+
+    val searchCarsUseCase = SearchCarsUseCase(carRepository)
+
+    val getCurrentProfileUseCase = GetCurrentProfileUseCase(authRepository, profileRepository)
+
+    val updateAvatarUseCase = UpdateAvatarUseCase(authRepository, profileRepository)
 
     val viewModelFactory = ViewModelFactory(this)
 }

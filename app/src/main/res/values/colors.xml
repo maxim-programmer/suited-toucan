@@ -9,4 +9,5 @@
     <color name="input_stroke">#FFD9DCE4</color>
     <color name="hint">#FF8E8E99</color>
     <color name="error">#FFD32F2F</color>
+    <color name="search_header">#FFF3EFFB</color>
 </resources>

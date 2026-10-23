@@ -8,6 +8,9 @@ import com.example.drivenext.presentation.auth.register.RegistrationViewModel
 import com.example.drivenext.presentation.main.MainViewModel
 import com.example.drivenext.presentation.noconnection.NoConnectionViewModel
 import com.example.drivenext.presentation.onboarding.OnboardingViewModel
+import com.example.drivenext.presentation.profile.ProfileViewModel
+import com.example.drivenext.presentation.search.SearchResultsViewModel
+import com.example.drivenext.presentation.settings.SettingsViewModel
 import com.example.drivenext.presentation.splash.SplashViewModel
 
 class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.Factory {
@@ -30,7 +33,18 @@ class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.
         modelClass.isAssignableFrom(RegistrationViewModel::class.java) ->
             RegistrationViewModel(container.registerUserUseCase) as T
         modelClass.isAssignableFrom(MainViewModel::class.java) ->
-            MainViewModel(container.signOutUseCase) as T
+            MainViewModel(container.getCarsUseCase) as T
+        modelClass.isAssignableFrom(SearchResultsViewModel::class.java) ->
+            SearchResultsViewModel(container.searchCarsUseCase) as T
+        modelClass.isAssignableFrom(SettingsViewModel::class.java) ->
+            SettingsViewModel(container.getCurrentProfileUseCase) as T
+        modelClass.isAssignableFrom(ProfileViewModel::class.java) ->
+            ProfileViewModel(
+                container.getCurrentProfileUseCase,
+                container.updateAvatarUseCase,
+                container.signOutUseCase,
+                container.resetPasswordUseCase
+            ) as T
         else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
     }
 }

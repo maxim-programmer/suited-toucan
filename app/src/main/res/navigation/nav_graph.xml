@@ -5,6 +5,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashFragment">
 
+    <action
+        android:id="@+id/action_global_welcome"
+        app:destination="@id/welcomeFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.drivenext.presentation.splash.SplashFragment"
@@ -137,12 +143,49 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.drivenext.presentation.main.MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_main_to_welcome"
-            app:destination="@id/welcomeFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.example.drivenext.presentation.search.SearchResultsFragment"
+        tools:layout="@layout/fragment_search_results">
+        <argument
+            android:name="query"
+            app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
+        android:label="@string/screen_my_bookings"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.drivenext.presentation.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.drivenext.presentation.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/rentalFragment"
+        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
+        android:label="@string/screen_rental"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/carDetailsFragment"
+        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
+        android:label="@string/screen_car_details"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/addCarFragment"
+        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
+        android:label="@string/screen_add_car"
+        tools:layout="@layout/fragment_placeholder" />
 
 </navigation>

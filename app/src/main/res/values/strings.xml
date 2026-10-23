@@ -99,4 +99,72 @@
     <string name="error_gallery_unavailable">Не удалось открыть галерею.</string>
     <string name="error_camera_unavailable">Не удалось открыть камеру.</string>
     <string name="error_photo_read">Не удалось отобразить выбранное фото.</string>
+
+    <string name="main_search_hint">Введите марку автомобиля</string>
+    <string name="main_find_car">Давайте найдем автомобиль</string>
+    <string name="car_price">%1$d₽</string>
+    <string name="car_per_day">в день</string>
+    <string name="car_book">Забронировать</string>
+    <string name="car_details">Детали</string>
+    <string name="car_image_description">Фото автомобиля</string>
+    <string name="transmission_automatic">A/T</string>
+    <string name="transmission_manual">M/T</string>
+    <string name="fuel_petrol">Бензин</string>
+    <string name="fuel_diesel">Дизель</string>
+    <string name="fuel_electric">Электро</string>
+    <string name="fuel_hybrid">Гибрид</string>
+    <string name="cars_empty">Ничего не найдено</string>
+    <string name="retry">Повторить</string>
+    <string name="back_description">Назад</string>
+    <string name="search_results_title">Результаты поиска</string>
+
+    <string name="nav_home">Главная</string>
+    <string name="nav_bookings">Бронирования</string>
+    <string name="nav_settings">Настройки</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="settings_my_bookings">Мои бронирования</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_connect_car">Подключить свой автомобиль</string>
+    <string name="settings_help">Помощь</string>
+    <string name="settings_invite">Пригласи друга</string>
+    <string name="settings_invite_text">Присоединяйся к DriveNext — аренда автомобилей в пару касаний!</string>
+    <string name="settings_invite_chooser">Пригласить друга</string>
+    <string name="feature_in_development">Этот раздел появится в одной из следующих версий приложения.</string>
+
+    <string name="screen_my_bookings">Мои бронирования</string>
+    <string name="screen_rental">Оформление аренды</string>
+    <string name="screen_car_details">Детали</string>
+    <string name="screen_add_car">Добавление автомобиля</string>
+    <string name="placeholder_description">Экран будет реализован в следующих работах.</string>
+
+    <string name="profile_title">Профиль</string>
+    <string name="profile_default_name">Пользователь</string>
+    <string name="profile_joined">Присоединился в %1$s</string>
+    <string name="profile_email">Электронная почта</string>
+    <string name="profile_password">Пароль</string>
+    <string name="profile_change_password">Поменять пароль</string>
+    <string name="profile_gender">Пол</string>
+    <string name="profile_google">Google</string>
+    <string name="profile_logout">Выйти из профиля</string>
+    <string name="profile_value_empty">Не указан</string>
+    <string-array name="profile_months_prepositional">
+        <item>январе</item>
+        <item>феврале</item>
+        <item>марте</item>
+        <item>апреле</item>
+        <item>мае</item>
+        <item>июне</item>
+        <item>июле</item>
+        <item>августе</item>
+        <item>сентябре</item>
+        <item>октябре</item>
+        <item>ноябре</item>
+        <item>декабре</item>
+    </string-array>
+
+    <string name="error_load_data">Не удалось загрузить данные. Попробуйте снова.</string>
+    <string name="error_search">Не удалось выполнить поиск. Попробуйте снова.</string>
+    <string name="error_share_unavailable">Не удалось открыть окно отправки.</string>
 </resources>

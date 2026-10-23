@@ -84,4 +84,21 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="Widget.DriveNext.CarCard" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/text_primary</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.DriveNext.OutlinedPrimaryButton" parent="Widget.DriveNext.OutlinedButton">
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/primary</item>
+    </style>
+
+    <style name="Widget.DriveNext.BottomNavigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
+
 </resources>
