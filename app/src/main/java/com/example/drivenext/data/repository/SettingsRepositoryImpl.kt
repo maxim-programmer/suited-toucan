@@ -1,6 +1,7 @@
 package com.example.drivenext.data.repository
 
 import android.content.Context
+import com.example.drivenext.domain.model.ThemeMode
 import com.example.drivenext.domain.repository.SettingsRepository
 
 class SettingsRepositoryImpl(context: Context) : SettingsRepository {
@@ -18,8 +19,19 @@ class SettingsRepositoryImpl(context: Context) : SettingsRepository {
         }
     }
 
+    override fun getThemeMode(): ThemeMode = runCatching {
+        ThemeMode.valueOf(preferences.getString(KEY_THEME_MODE, ThemeMode.System.name).orEmpty())
+    }.getOrDefault(ThemeMode.System)
+
+    override fun setThemeMode(mode: ThemeMode) {
+        runCatching {
+            preferences.edit().putString(KEY_THEME_MODE, mode.name).apply()
+        }
+    }
+
     private companion object {
         const val PREFERENCES_NAME = "drivenext_settings"
         const val KEY_ONBOARDING_COMPLETED = "onboarding_completed"
+        const val KEY_THEME_MODE = "theme_mode"
     }
 }

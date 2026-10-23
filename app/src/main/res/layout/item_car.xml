@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.42" />
 
         <TextView
             android:id="@+id/modelTextView"
@@ -147,9 +147,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bookButton"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
+                app:cornerRadius="6dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:maxLines="1"
@@ -163,9 +164,10 @@
                 android:id="@+id/detailsButton"
                 style="@style/Widget.DriveNext.OutlinedPrimaryButton"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="6dp"
                 android:layout_weight="1"
+                app:cornerRadius="6dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:maxLines="1"

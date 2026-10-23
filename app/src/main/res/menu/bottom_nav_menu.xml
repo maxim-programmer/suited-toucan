@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_nav_home"
         android:title="@string/nav_home" />
     <item
-        android:id="@+id/bookingsFragment"
-        android:icon="@drawable/ic_nav_bookmark"
-        android:title="@string/nav_bookings" />
+        android:id="@+id/favouritesFragment"
+        android:icon="@drawable/ic_nav_favourites"
+        android:title="@string/nav_favourites" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_nav_settings"

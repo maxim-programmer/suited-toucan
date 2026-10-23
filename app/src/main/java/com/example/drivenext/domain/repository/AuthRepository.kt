@@ -11,5 +11,6 @@ interface AuthRepository {
     suspend fun signUp(email: String, password: String)
     suspend fun startGoogleSignIn()
     suspend fun resetPassword(email: String)
+    suspend fun changePassword(newPassword: String)
     suspend fun signOut()
 }

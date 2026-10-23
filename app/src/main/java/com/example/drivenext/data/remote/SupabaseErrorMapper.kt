@@ -30,6 +30,8 @@ private fun authMessage(exception: AuthRestException): String = when (exception.
     AuthErrorCode.OverRequestRateLimit,
     AuthErrorCode.OverEmailSendRateLimit -> "Слишком много попыток. Повторите позже."
     AuthErrorCode.EmailAddressInvalid -> "Введите корректный адрес электронной почты."
+    AuthErrorCode.SamePassword -> "Новый пароль должен отличаться от текущего."
+    AuthErrorCode.ReauthenticationNeeded -> "Для смены пароля войдите в аккаунт заново."
     AuthErrorCode.SignupDisabled -> "Регистрация временно отключена."
     AuthErrorCode.ProviderDisabled,
     AuthErrorCode.EmailProviderDisabled -> "Выбранный способ входа отключён на сервере."

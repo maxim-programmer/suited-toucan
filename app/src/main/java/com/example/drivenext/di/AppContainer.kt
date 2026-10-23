@@ -2,29 +2,47 @@ package com.example.drivenext.di
 
 import android.content.Context
 import com.example.drivenext.data.remote.AuthDeepLinkHandler
+import com.example.drivenext.data.local.AppDatabase
 import com.example.drivenext.data.remote.SupabaseClientFactory
 import com.example.drivenext.data.repository.AuthRepositoryImpl
+import com.example.drivenext.data.repository.BookingRepositoryImpl
 import com.example.drivenext.data.repository.CarRepositoryImpl
 import com.example.drivenext.data.repository.ConnectivityRepositoryImpl
+import com.example.drivenext.data.repository.FavouriteRepositoryImpl
 import com.example.drivenext.data.repository.ProfileRepositoryImpl
 import com.example.drivenext.data.repository.SettingsRepositoryImpl
 import com.example.drivenext.domain.repository.AuthRepository
+import com.example.drivenext.domain.repository.BookingRepository
 import com.example.drivenext.domain.repository.CarRepository
 import com.example.drivenext.domain.repository.ConnectivityRepository
+import com.example.drivenext.domain.repository.FavouriteRepository
 import com.example.drivenext.domain.repository.ProfileRepository
 import com.example.drivenext.domain.repository.SettingsRepository
+import com.example.drivenext.domain.usecase.CancelBookingUseCase
+import com.example.drivenext.domain.usecase.ChangePasswordUseCase
 import com.example.drivenext.domain.usecase.CompleteOnboardingUseCase
+import com.example.drivenext.domain.usecase.CreateBookingUseCase
+import com.example.drivenext.domain.usecase.GetBookingUseCase
+import com.example.drivenext.domain.usecase.GetBookingsUseCase
+import com.example.drivenext.domain.usecase.GetCarUseCase
 import com.example.drivenext.domain.usecase.GetCarsUseCase
 import com.example.drivenext.domain.usecase.GetCurrentProfileUseCase
+import com.example.drivenext.domain.usecase.GetFavouriteCarsUseCase
+import com.example.drivenext.domain.usecase.GetThemeModeUseCase
+import com.example.drivenext.domain.usecase.IsCarFavouriteUseCase
 import com.example.drivenext.domain.usecase.ObserveAuthStateUseCase
 import com.example.drivenext.domain.usecase.RegisterUserUseCase
 import com.example.drivenext.domain.usecase.ResetPasswordUseCase
 import com.example.drivenext.domain.usecase.ResolveStartDestinationUseCase
 import com.example.drivenext.domain.usecase.SearchCarsUseCase
+import com.example.drivenext.domain.usecase.SetThemeModeUseCase
 import com.example.drivenext.domain.usecase.SignInUseCase
 import com.example.drivenext.domain.usecase.SignInWithGoogleUseCase
 import com.example.drivenext.domain.usecase.SignOutUseCase
+import com.example.drivenext.domain.usecase.ToggleFavouriteUseCase
 import com.example.drivenext.domain.usecase.UpdateAvatarUseCase
+import com.example.drivenext.domain.usecase.UpdateGenderUseCase
+import com.example.drivenext.domain.usecase.UpdateNameUseCase
 import com.example.drivenext.presentation.common.ViewModelFactory
 import io.github.jan.supabase.SupabaseClient
 
@@ -33,6 +51,8 @@ class AppContainer(context: Context) {
     private val appContext = context.applicationContext
 
     private val supabaseClient: SupabaseClient by lazy { SupabaseClientFactory.create() }
+
+    private val database: AppDatabase by lazy { AppDatabase.getInstance(appContext) }
 
     private val settingsRepository: SettingsRepository =
         SettingsRepositoryImpl(appContext)
@@ -48,6 +68,14 @@ class AppContainer(context: Context) {
 
     private val carRepository: CarRepository =
         CarRepositoryImpl { supabaseClient }
+
+    private val bookingRepository: BookingRepository by lazy {
+        BookingRepositoryImpl(database.bookingDao())
+    }
+
+    private val favouriteRepository: FavouriteRepository by lazy {
+        FavouriteRepositoryImpl(database.favouriteDao())
+    }
 
     val authDeepLinkHandler = AuthDeepLinkHandler { supabaseClient }
 
@@ -76,6 +104,34 @@ class AppContainer(context: Context) {
     val getCurrentProfileUseCase = GetCurrentProfileUseCase(authRepository, profileRepository)
 
     val updateAvatarUseCase = UpdateAvatarUseCase(authRepository, profileRepository)
+
+    val getCarUseCase = GetCarUseCase(carRepository)
+
+    val getFavouriteCarsUseCase =
+        GetFavouriteCarsUseCase(authRepository, favouriteRepository, carRepository)
+
+    val isCarFavouriteUseCase = IsCarFavouriteUseCase(authRepository, favouriteRepository)
+
+    val toggleFavouriteUseCase = ToggleFavouriteUseCase(authRepository, favouriteRepository)
+
+    val createBookingUseCase =
+        CreateBookingUseCase(authRepository, profileRepository, bookingRepository)
+
+    val getBookingsUseCase = GetBookingsUseCase(authRepository, bookingRepository)
+
+    val getBookingUseCase = GetBookingUseCase(authRepository, bookingRepository)
+
+    val cancelBookingUseCase = CancelBookingUseCase(authRepository, bookingRepository)
+
+    val changePasswordUseCase = ChangePasswordUseCase(authRepository)
+
+    val updateGenderUseCase = UpdateGenderUseCase(authRepository, profileRepository)
+
+    val updateNameUseCase = UpdateNameUseCase(authRepository, profileRepository)
+
+    val getThemeModeUseCase = GetThemeModeUseCase(settingsRepository)
+
+    val setThemeModeUseCase = SetThemeModeUseCase(settingsRepository)
 
     val viewModelFactory = ViewModelFactory(this)
 }

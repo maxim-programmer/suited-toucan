@@ -155,12 +155,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/bookingsFragment"
-        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
-        android:label="@string/screen_my_bookings"
-        tools:layout="@layout/fragment_placeholder" />
-
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.drivenext.presentation.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
@@ -171,16 +165,46 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/rentalFragment"
-        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
-        android:label="@string/screen_rental"
-        tools:layout="@layout/fragment_placeholder" />
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.drivenext.presentation.favourites.FavouritesFragment"
+        tools:layout="@layout/fragment_favourites" />
 
     <fragment
         android:id="@+id/carDetailsFragment"
-        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
-        android:label="@string/screen_car_details"
-        tools:layout="@layout/fragment_placeholder" />
+        android:name="com.example.drivenext.presentation.details.CarDetailsFragment"
+        tools:layout="@layout/fragment_car_details">
+        <argument
+            android:name="carId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rentalFragment"
+        android:name="com.example.drivenext.presentation.rental.RentalFragment"
+        tools:layout="@layout/fragment_rental">
+        <argument
+            android:name="carId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rentalSuccessFragment"
+        android:name="com.example.drivenext.presentation.rental.RentalSuccessFragment"
+        tools:layout="@layout/fragment_rental_success" />
+
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.example.drivenext.presentation.bookings.BookingsFragment"
+        tools:layout="@layout/fragment_bookings" />
+
+    <fragment
+        android:id="@+id/bookingDetailsFragment"
+        android:name="com.example.drivenext.presentation.bookings.BookingDetailsFragment"
+        tools:layout="@layout/fragment_booking_details">
+        <argument
+            android:name="bookingId"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/addCarFragment"

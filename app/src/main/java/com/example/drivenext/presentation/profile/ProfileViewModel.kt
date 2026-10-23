@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drivenext.R
 import com.example.drivenext.domain.model.AppException
+import com.example.drivenext.domain.model.Gender
 import com.example.drivenext.domain.model.UserProfile
+import com.example.drivenext.domain.usecase.ChangePasswordUseCase
 import com.example.drivenext.domain.usecase.GetCurrentProfileUseCase
-import com.example.drivenext.domain.usecase.ResetPasswordUseCase
 import com.example.drivenext.domain.usecase.SignOutUseCase
 import com.example.drivenext.domain.usecase.UpdateAvatarUseCase
+import com.example.drivenext.domain.usecase.UpdateGenderUseCase
+import com.example.drivenext.domain.usecase.UpdateNameUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,8 +37,10 @@ sealed interface ProfileEvent {
 class ProfileViewModel(
     private val getCurrentProfile: GetCurrentProfileUseCase,
     private val updateAvatar: UpdateAvatarUseCase,
-    private val signOut: SignOutUseCase,
-    private val resetPassword: ResetPasswordUseCase
+    private val updateGender: UpdateGenderUseCase,
+    private val updateName: UpdateNameUseCase,
+    private val changePassword: ChangePasswordUseCase,
+    private val signOut: SignOutUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProfileUiState())
@@ -65,7 +70,9 @@ class ProfileViewModel(
                     _state.update { current ->
                         current.copy(
                             isLoading = false,
-                            profile = current.profile?.let { profile -> profile.copy(avatarUrl = url ?: profile.avatarUrl) }
+                            profile = current.profile?.let { profile ->
+                                profile.copy(avatarUrl = url ?: profile.avatarUrl)
+                            }
                         )
                     }
                 }
@@ -76,19 +83,66 @@ class ProfileViewModel(
         }
     }
 
-    fun onChangePasswordClicked() {
-        val email = _state.value.profile?.email ?: return
+    fun onGenderSelected(gender: Gender) {
+        val profile = _state.value.profile ?: return
+        if (_state.value.isLoading || profile.gender == gender) return
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
+            updateGender(gender)
+                .onSuccess {
+                    _state.update { current ->
+                        current.copy(
+                            isLoading = false,
+                            profile = current.profile?.copy(gender = gender)
+                        )
+                    }
+                }
+                .onFailure { error ->
+                    _state.update { it.copy(isLoading = false) }
+                    _events.send(ProfileEvent.ShowError(error.message ?: AppException.UNKNOWN_MESSAGE))
+                }
+        }
+    }
+
+    fun onNameSubmitted(firstName: String, lastName: String) {
+        val profile = _state.value.profile ?: return
+        if (_state.value.isLoading) return
+        val newFirstName = firstName.trim()
+        val newLastName = lastName.trim()
+        if (profile.firstName == newFirstName && profile.lastName == newLastName) return
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
+            updateName(newFirstName, newLastName)
+                .onSuccess {
+                    _state.update { current ->
+                        current.copy(
+                            isLoading = false,
+                            profile = current.profile?.copy(
+                                firstName = newFirstName,
+                                lastName = newLastName
+                            )
+                        )
+                    }
+                }
+                .onFailure { error ->
+                    _state.update { it.copy(isLoading = false) }
+                    _events.send(ProfileEvent.ShowError(error.message ?: AppException.UNKNOWN_MESSAGE))
+                }
+        }
+    }
+
+    fun onPasswordSubmitted(newPassword: String) {
         if (_state.value.isLoading) return
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            val result = resetPassword(email)
+            val result = changePassword(newPassword)
             _state.update { it.copy(isLoading = false) }
             result
                 .onSuccess {
                     _events.send(
                         ProfileEvent.ShowInfo(
-                            R.string.reset_password_title,
-                            R.string.reset_password_message
+                            R.string.password_changed_title,
+                            R.string.password_changed_message
                         )
                     )
                 }

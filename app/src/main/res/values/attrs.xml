@@ -4,4 +4,7 @@
         <attr name="rowIcon" format="reference" />
         <attr name="rowTitle" format="string" />
     </declare-styleable>
+    <declare-styleable name="InfoRowView">
+        <attr name="infoLabel" format="string" />
+    </declare-styleable>
 </resources>

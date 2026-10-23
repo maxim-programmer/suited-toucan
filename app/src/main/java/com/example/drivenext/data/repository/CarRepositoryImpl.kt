@@ -44,6 +44,26 @@ class CarRepositoryImpl(private val clientProvider: () -> SupabaseClient) : CarR
         parseCars(client, response.data)
     }
 
+    override suspend fun getCar(id: String): Car? = guardRemote {
+        val client = clientProvider()
+        val response = client.postgrest.from(TABLE_NAME).select {
+            filter { eq("id", id) }
+        }
+        parseCars(client, response.data).firstOrNull()
+    }
+
+    override suspend fun getCarsByIds(ids: List<String>): List<Car> = guardRemote {
+        if (ids.isEmpty()) {
+            emptyList()
+        } else {
+            val client = clientProvider()
+            val response = client.postgrest.from(TABLE_NAME).select {
+                filter { isIn("id", ids) }
+            }
+            parseCars(client, response.data)
+        }
+    }
+
     private fun parseCars(client: SupabaseClient, json: String): List<Car> {
         val bucket = client.storage.from(IMAGES_BUCKET)
         return Json.parseToJsonElement(json).jsonArray.mapNotNull { element ->
@@ -55,15 +75,23 @@ class CarRepositoryImpl(private val clientProvider: () -> SupabaseClient) : CarR
                 id = id,
                 brand = brand,
                 model = model,
-                pricePerDay = row.price(),
+                year = row.int("year", 0),
+                pricePerDay = row.int("price_per_day", 0),
+                insurancePerDay = row.int("insurance_per_day", DEFAULT_INSURANCE),
+                deposit = row.int("deposit", DEFAULT_DEPOSIT),
                 transmission = parseTransmission(row.stringOrNull("transmission")),
                 fuelType = parseFuelType(row.stringOrNull("fuel_type")),
-                imageUrl = row.stringOrNull("image_path")?.takeIf { it.isNotBlank() }?.let { bucket.publicUrl(it) }
+                address = row.stringOrNull("address").orEmpty(),
+                description = row.stringOrNull("description").orEmpty(),
+                imageUrl = row.stringOrNull("image_path")
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let { bucket.publicUrl(it) }
             )
         }
     }
 
-    private fun JsonObject.price(): Int = this["price_per_day"]?.jsonPrimitive?.doubleOrNull?.toInt() ?: 0
+    private fun JsonObject.int(key: String, default: Int): Int =
+        this[key]?.jsonPrimitive?.doubleOrNull?.toInt() ?: default
 
     private fun parseTransmission(value: String?): Transmission =
         if (value.equals("manual", ignoreCase = true)) Transmission.Manual else Transmission.Automatic
@@ -81,5 +109,7 @@ class CarRepositoryImpl(private val clientProvider: () -> SupabaseClient) : CarR
     private companion object {
         const val TABLE_NAME = "cars"
         const val IMAGES_BUCKET = "car-images"
+        const val DEFAULT_INSURANCE = 300
+        const val DEFAULT_DEPOSIT = 15000
     }
 }

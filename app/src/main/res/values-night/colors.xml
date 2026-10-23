@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FF121216</color>
+    <color name="primary">#FFC9B8FF</color>
+    <color name="text_primary">#FFEDEDF2</color>
+    <color name="text_secondary">#FFC9CBD3</color>
+    <color name="indicator_inactive">#FF2E2E38</color>
+    <color name="input_stroke">#FF454552</color>
+    <color name="hint">#FF9A9AA8</color>
+    <color name="error">#FFFF8A80</color>
+    <color name="search_header">#FF1F1B2E</color>
+    <color name="booking_subtitle">#FF9BA7C8</color>
+</resources>

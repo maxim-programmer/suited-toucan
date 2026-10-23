@@ -76,6 +76,7 @@ class ProfileRepositoryImpl(
             firstName = row?.stringOrNull("first_name"),
             lastName = row?.stringOrNull("last_name"),
             gender = Gender.entries.firstOrNull { it.apiValue == genderValue },
+            licenseNumber = row?.stringOrNull("license_number"),
             joinedAt = row?.stringOrNull("created_at")?.let { parseJoinDate(it) },
             avatarUrl = avatarPath?.let { createSignedUrl(client, it) },
             googleEmail = user.email.takeIf { user.hasGoogle }
@@ -92,6 +93,39 @@ class ProfileRepositoryImpl(
             filter { eq("id", userId) }
         }
         createSignedUrl(client, path)
+    }
+
+    override suspend fun updateGender(userId: String, gender: Gender) {
+        guardRemote {
+            val client = clientProvider()
+            val response = client.postgrest.from(TABLE_NAME).update(
+                buildJsonObject { put("gender", gender.apiValue) }
+            ) {
+                select()
+                filter { eq("id", userId) }
+            }
+            if (Json.parseToJsonElement(response.data).jsonArray.isEmpty()) {
+                throw AppException(PROFILE_NOT_FOUND_MESSAGE)
+            }
+        }
+    }
+
+    override suspend fun updateName(userId: String, firstName: String, lastName: String) {
+        guardRemote {
+            val client = clientProvider()
+            val response = client.postgrest.from(TABLE_NAME).update(
+                buildJsonObject {
+                    put("first_name", firstName)
+                    put("last_name", lastName)
+                }
+            ) {
+                select()
+                filter { eq("id", userId) }
+            }
+            if (Json.parseToJsonElement(response.data).jsonArray.isEmpty()) {
+                throw AppException(PROFILE_NOT_FOUND_MESSAGE)
+            }
+        }
     }
 
     private suspend fun createSignedUrl(client: SupabaseClient, path: String): String? = try {
@@ -140,6 +174,7 @@ class ProfileRepositoryImpl(
         const val BUCKET_NAME = "user-documents"
         const val TABLE_NAME = "profiles"
         const val DEFAULT_MIME_TYPE = "image/jpeg"
+        const val PROFILE_NOT_FOUND_MESSAGE = "Профиль не найден. Завершите регистрацию."
         const val MAX_PHOTO_SIZE_BYTES = 10 * 1024 * 1024
         val SIGNED_URL_LIFETIME = 1.hours
     }

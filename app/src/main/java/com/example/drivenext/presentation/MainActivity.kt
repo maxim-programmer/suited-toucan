@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.example.drivenext.DriveNextApp
 import com.example.drivenext.R
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigateToTab(item.itemId)
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val tabId = TAB_FOR_DESTINATION[destination.id]
+            val tabId = resolveTab(destination)
             binding.bottomBarContainer.isVisible = tabId != null
             if (tabId != null) {
                 binding.bottomNavigation.menu.findItem(tabId)?.isChecked = true
@@ -86,12 +87,14 @@ class MainActivity : AppCompatActivity() {
         binding.bottomBarContainer.setPadding(bars.left, 0, bars.right, bars.bottom)
     }
 
-    private companion object {
-        val TAB_FOR_DESTINATION = mapOf(
-            R.id.mainFragment to R.id.mainFragment,
-            R.id.bookingsFragment to R.id.bookingsFragment,
-            R.id.settingsFragment to R.id.settingsFragment,
-            R.id.profileFragment to R.id.settingsFragment
-        )
+    private fun resolveTab(destination: NavDestination): Int? = when (destination.id) {
+        R.id.mainFragment, R.id.searchResultsFragment -> R.id.mainFragment
+        R.id.favouritesFragment -> R.id.favouritesFragment
+        R.id.settingsFragment, R.id.profileFragment -> R.id.settingsFragment
+        R.id.carDetailsFragment -> when (navController.previousBackStackEntry?.destination?.id) {
+            R.id.favouritesFragment -> R.id.favouritesFragment
+            else -> R.id.mainFragment
+        }
+        else -> null
     }
 }

@@ -5,10 +5,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.drivenext.di.AppContainer
 import com.example.drivenext.presentation.auth.login.LoginViewModel
 import com.example.drivenext.presentation.auth.register.RegistrationViewModel
+import com.example.drivenext.presentation.bookings.BookingDetailsViewModel
+import com.example.drivenext.presentation.bookings.BookingsViewModel
+import com.example.drivenext.presentation.details.CarDetailsViewModel
+import com.example.drivenext.presentation.favourites.FavouritesViewModel
 import com.example.drivenext.presentation.main.MainViewModel
 import com.example.drivenext.presentation.noconnection.NoConnectionViewModel
 import com.example.drivenext.presentation.onboarding.OnboardingViewModel
 import com.example.drivenext.presentation.profile.ProfileViewModel
+import com.example.drivenext.presentation.rental.RentalViewModel
 import com.example.drivenext.presentation.search.SearchResultsViewModel
 import com.example.drivenext.presentation.settings.SettingsViewModel
 import com.example.drivenext.presentation.splash.SplashViewModel
@@ -37,14 +42,34 @@ class ViewModelFactory(private val container: AppContainer) : ViewModelProvider.
         modelClass.isAssignableFrom(SearchResultsViewModel::class.java) ->
             SearchResultsViewModel(container.searchCarsUseCase) as T
         modelClass.isAssignableFrom(SettingsViewModel::class.java) ->
-            SettingsViewModel(container.getCurrentProfileUseCase) as T
+            SettingsViewModel(
+                container.getCurrentProfileUseCase,
+                container.getThemeModeUseCase,
+                container.setThemeModeUseCase
+            ) as T
         modelClass.isAssignableFrom(ProfileViewModel::class.java) ->
             ProfileViewModel(
                 container.getCurrentProfileUseCase,
                 container.updateAvatarUseCase,
-                container.signOutUseCase,
-                container.resetPasswordUseCase
+                container.updateGenderUseCase,
+                container.updateNameUseCase,
+                container.changePasswordUseCase,
+                container.signOutUseCase
             ) as T
+        modelClass.isAssignableFrom(CarDetailsViewModel::class.java) ->
+            CarDetailsViewModel(
+                container.getCarUseCase,
+                container.isCarFavouriteUseCase,
+                container.toggleFavouriteUseCase
+            ) as T
+        modelClass.isAssignableFrom(RentalViewModel::class.java) ->
+            RentalViewModel(container.getCarUseCase, container.createBookingUseCase) as T
+        modelClass.isAssignableFrom(BookingsViewModel::class.java) ->
+            BookingsViewModel(container.getBookingsUseCase) as T
+        modelClass.isAssignableFrom(BookingDetailsViewModel::class.java) ->
+            BookingDetailsViewModel(container.getBookingUseCase, container.cancelBookingUseCase) as T
+        modelClass.isAssignableFrom(FavouritesViewModel::class.java) ->
+            FavouritesViewModel(container.getFavouriteCarsUseCase) as T
         else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
     }
 }

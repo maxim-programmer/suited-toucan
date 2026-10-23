@@ -2,8 +2,11 @@ package com.example.drivenext.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.drivenext.domain.model.ThemeMode
 import com.example.drivenext.domain.model.UserProfile
 import com.example.drivenext.domain.usecase.GetCurrentProfileUseCase
+import com.example.drivenext.domain.usecase.GetThemeModeUseCase
+import com.example.drivenext.domain.usecase.SetThemeModeUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,14 +17,17 @@ import kotlinx.coroutines.launch
 data class SettingsUiState(
     val isLoading: Boolean = false,
     val profile: UserProfile? = null,
-    val hasError: Boolean = false
+    val hasError: Boolean = false,
+    val themeMode: ThemeMode = ThemeMode.System
 )
 
 class SettingsViewModel(
-    private val getCurrentProfile: GetCurrentProfileUseCase
+    private val getCurrentProfile: GetCurrentProfileUseCase,
+    private val getThemeMode: GetThemeModeUseCase,
+    private val setThemeMode: SetThemeModeUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(SettingsUiState())
+    private val _state = MutableStateFlow(SettingsUiState(themeMode = getThemeMode()))
     val state: StateFlow<SettingsUiState> = _state.asStateFlow()
 
     private var loadJob: Job? = null
@@ -45,5 +51,10 @@ class SettingsViewModel(
 
     fun onRetryClicked() {
         refresh()
+    }
+
+    fun onThemeSelected(mode: ThemeMode) {
+        setThemeMode(mode)
+        _state.update { it.copy(themeMode = mode) }
     }
 }

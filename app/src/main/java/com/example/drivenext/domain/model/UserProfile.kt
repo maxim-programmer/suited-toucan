@@ -8,6 +8,7 @@ data class UserProfile(
     val firstName: String?,
     val lastName: String?,
     val gender: Gender?,
+    val licenseNumber: String?,
     val joinedAt: LocalDate?,
     val avatarUrl: String?,
     val googleEmail: String?

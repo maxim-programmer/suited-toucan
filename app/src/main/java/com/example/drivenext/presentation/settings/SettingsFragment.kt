@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.example.drivenext.R
 import com.example.drivenext.databinding.FragmentSettingsBinding
+import com.example.drivenext.domain.model.ThemeMode
 import com.example.drivenext.presentation.common.appContainer
+import com.example.drivenext.presentation.common.applyThemeMode
 import com.example.drivenext.presentation.common.collectWhenStarted
-import com.example.drivenext.presentation.common.navigateToTab
 import com.example.drivenext.presentation.common.showErrorDialog
 import com.example.drivenext.presentation.common.showInfoDialog
 
@@ -30,10 +32,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val navController = findNavController()
 
         binding.profileContainer.setOnClickListener { navController.navigate(R.id.profileFragment) }
-        binding.bookingsRow.setOnClickListener { navController.navigateToTab(R.id.bookingsFragment) }
-        binding.themeRow.setOnClickListener {
-            showInfoDialog(R.string.settings_theme, R.string.feature_in_development)
-        }
+        binding.bookingsRow.setOnClickListener { navController.navigate(R.id.bookingsFragment) }
+        binding.themeRow.setOnClickListener { showThemeDialog() }
         binding.notificationsRow.setOnClickListener {
             showInfoDialog(R.string.settings_notifications, R.string.feature_in_development)
         }
@@ -66,6 +66,30 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     override fun onStart() {
         super.onStart()
         viewModel.refresh()
+    }
+
+    private fun showThemeDialog() {
+        val modes = ThemeMode.entries
+        val labels = modes.map { mode ->
+            getString(
+                when (mode) {
+                    ThemeMode.System -> R.string.theme_system
+                    ThemeMode.Light -> R.string.theme_light
+                    ThemeMode.Dark -> R.string.theme_dark
+                }
+            )
+        }.toTypedArray()
+        val checked = modes.indexOf(viewModel.state.value.themeMode)
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.settings_theme)
+            .setSingleChoiceItems(labels, checked) { dialog, which ->
+                val mode = modes[which]
+                dialog.dismiss()
+                viewModel.onThemeSelected(mode)
+                applyThemeMode(mode)
+            }
+            .setNegativeButton(R.string.common_cancel, null)
+            .show()
     }
 
     private fun shareInvitation() {

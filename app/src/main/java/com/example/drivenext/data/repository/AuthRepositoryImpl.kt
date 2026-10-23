@@ -79,6 +79,14 @@ class AuthRepositoryImpl(private val clientProvider: () -> SupabaseClient) : Aut
         guardRemote { clientProvider().auth.resetPasswordForEmail(email) }
     }
 
+    override suspend fun changePassword(newPassword: String) {
+        guardRemote {
+            clientProvider().auth.updateUser {
+                password = newPassword
+            }
+        }
+    }
+
     override suspend fun signOut() {
         guardRemote {
             val auth = clientProvider().auth

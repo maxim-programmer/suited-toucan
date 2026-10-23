@@ -10,4 +10,5 @@
     <color name="hint">#FF8E8E99</color>
     <color name="error">#FFD32F2F</color>
     <color name="search_header">#FFF3EFFB</color>
+    <color name="booking_subtitle">#FF6F7C9B</color>
 </resources>

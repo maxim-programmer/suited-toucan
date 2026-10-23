@@ -20,7 +20,6 @@ class PlaceholderFragment : Fragment(R.layout.fragment_placeholder) {
         val subtitle = arguments?.getString(ARG_SUBTITLE).orEmpty()
         binding.subtitleTextView.text = subtitle
         binding.subtitleTextView.isVisible = subtitle.isNotEmpty()
-        binding.backButton.isVisible = destination?.id != R.id.bookingsFragment
         binding.backButton.setOnClickListener { navController.popBackStack() }
     }
 

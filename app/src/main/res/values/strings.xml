@@ -167,4 +167,93 @@
     <string name="error_load_data">Не удалось загрузить данные. Попробуйте снова.</string>
     <string name="error_search">Не удалось выполнить поиск. Попробуйте снова.</string>
     <string name="error_share_unavailable">Не удалось открыть окно отправки.</string>
+
+    <string name="nav_favourites">Избранное</string>
+    <string name="cars_loading">Ищем подходящие автомобили</string>
+    <string name="loading_data">Загрузка…</string>
+    <string name="value_unknown">Не указан</string>
+
+    <string name="favourites_title">Избранное</string>
+    <string name="favourites_empty">В избранном пока ничего нет</string>
+    <string name="favourite_add">Добавить в избранное</string>
+    <string name="favourite_remove">Убрать из избранного</string>
+    <string name="error_favourite">Не удалось добавить в избранное. Попробуйте снова.</string>
+
+    <string name="details_title">Детали</string>
+    <string name="details_address">Адрес нахождения</string>
+    <string name="details_description">Описание</string>
+    <string name="details_no_description">Описание пока не добавлено.</string>
+    <string name="car_price_per_day">%1$d₽/день</string>
+
+    <string name="rental_title">Оформление аренды</string>
+    <string name="rental_start">Начало аренды:</string>
+    <string name="rental_end">Конец аренды:</string>
+    <string name="rental_pick_start">Начало аренды</string>
+    <string name="rental_pick_end">Конец аренды</string>
+    <string name="rental_cost_label">Аренда автомобиля x%1$s:</string>
+    <string name="rental_insurance_label">Страховка x%1$s:</string>
+    <string name="rental_total">Итого</string>
+    <string name="rental_deposit">Возвращаемый депозит</string>
+    <string name="rental_continue">Продолжить</string>
+    <string name="error_rental_period">Дата окончания аренды должна быть позже даты начала.</string>
+    <plurals name="rental_days">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дня</item>
+    </plurals>
+
+    <string name="rental_success_title">Удачной поездки</string>
+    <string name="rental_success_message">Бронирование успешно создано</string>
+    <string name="rental_success_to_bookings">Перейти к своим бронированиям</string>
+    <string name="rental_success_home">Домой</string>
+
+    <string name="bookings_empty">У вас пока нет бронирований</string>
+    <string name="booking_active_subtitle">Начало аренды: %1$s</string>
+    <string name="booking_completed_subtitle">Аренда завершена, %1$s</string>
+    <string name="booking_cancelled_subtitle">Аренда отменена, %1$s</string>
+
+    <string name="booking_title">Бронирование # %1$d</string>
+    <string name="booking_address">Адрес нахождения</string>
+    <string name="booking_start">Начало аренды</string>
+    <string name="booking_end">Конец аренды</string>
+    <string name="booking_driver">ФИО водителя</string>
+    <string name="booking_license">Номер ВУ</string>
+    <string name="booking_status">Статус аренды</string>
+    <string name="status_active">Одобрено</string>
+    <string name="status_completed">Завершено</string>
+    <string name="status_cancelled">Отменено</string>
+    <string name="booking_total">Общая сумма</string>
+    <string name="booking_cancel">Отменить бронирование</string>
+    <string name="booking_cancel_confirm_title">Отменить бронирование?</string>
+    <string name="booking_cancel_confirm_message">Это действие нельзя будет отменить.</string>
+    <string name="booking_cancel_yes">Отменить</string>
+    <string name="booking_cancel_no">Назад</string>
+
+    <string name="common_cancel">Отмена</string>
+    <string name="profile_gender_dialog_title">Выберите пол</string>
+
+    <string name="change_password_title">Смена пароля</string>
+    <string name="change_password_new_label">Новый пароль</string>
+    <string name="change_password_new_hint">Введите новый пароль</string>
+    <string name="change_password_repeat_label">Повторите пароль</string>
+    <string name="change_password_repeat_hint">Введите пароль ещё раз</string>
+    <string name="change_password_save">Сохранить</string>
+    <string name="change_password_error_short">Пароль должен содержать не менее %1$d символов</string>
+    <string name="change_password_error_mismatch">Пароли не совпадают</string>
+    <string name="password_changed_title">Готово</string>
+    <string name="password_changed_message">Пароль успешно изменён.</string>
+
+    <string name="theme_system">Как в системе</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+
+    <string name="profile_name_label">Имя и фамилия</string>
+    <string name="edit_name_title">Изменить имя</string>
+    <string name="edit_name_first_label">Имя</string>
+    <string name="edit_name_first_hint">Введите имя</string>
+    <string name="edit_name_last_label">Фамилия</string>
+    <string name="edit_name_last_hint">Введите фамилию</string>
+    <string name="edit_name_error_empty">Поле не может быть пустым</string>
+    <string name="edit_name_error_invalid">Допустимы только буквы, пробел и дефис</string>
 </resources>
