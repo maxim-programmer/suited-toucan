@@ -72,6 +72,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.onScreenStarted()
+    }
+
     override fun onDestroyView() {
         carListController = null
         _binding = null

@@ -11,7 +11,9 @@ import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.storage
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -64,6 +66,15 @@ class CarRepositoryImpl(private val clientProvider: () -> SupabaseClient) : CarR
         }
     }
 
+    override suspend fun getCarsByOwner(ownerId: String): List<Car> = guardRemote {
+        val client = clientProvider()
+        val response = client.postgrest.from(TABLE_NAME).select {
+            filter { eq("owner_id", ownerId) }
+            order("created_at", Order.DESCENDING)
+        }
+        parseCars(client, response.data)
+    }
+
     private fun parseCars(client: SupabaseClient, json: String): List<Car> {
         val bucket = client.storage.from(IMAGES_BUCKET)
         return Json.parseToJsonElement(json).jsonArray.mapNotNull { element ->
@@ -85,7 +96,12 @@ class CarRepositoryImpl(private val clientProvider: () -> SupabaseClient) : CarR
                 description = row.stringOrNull("description").orEmpty(),
                 imageUrl = row.stringOrNull("image_path")
                     ?.takeIf { it.isNotBlank() }
-                    ?.let { bucket.publicUrl(it) }
+                    ?.let { bucket.publicUrl(it) },
+                photoUrls = row["photo_paths"]?.let { element ->
+                    (element as? JsonArray)?.mapNotNull { it.jsonPrimitive.contentOrNull }
+                }.orEmpty()
+                    .filter { it.isNotBlank() }
+                    .map { bucket.publicUrl(it) }
             )
         }
     }

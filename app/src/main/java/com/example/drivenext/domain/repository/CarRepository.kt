@@ -7,4 +7,5 @@ interface CarRepository {
     suspend fun searchCars(query: String): List<Car>
     suspend fun getCar(id: String): Car?
     suspend fun getCarsByIds(ids: List<String>): List<Car>
+    suspend fun getCarsByOwner(ownerId: String): List<Car>
 }

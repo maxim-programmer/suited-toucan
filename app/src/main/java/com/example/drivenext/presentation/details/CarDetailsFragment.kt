@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import coil.load
+import androidx.viewpager2.widget.ViewPager2
 import com.example.drivenext.R
 import com.example.drivenext.databinding.FragmentCarDetailsBinding
 import com.example.drivenext.presentation.cars.ARG_CAR_ID
@@ -22,11 +22,22 @@ class CarDetailsFragment : Fragment(R.layout.fragment_car_details) {
     private var _binding: FragmentCarDetailsBinding? = null
     private val binding get() = _binding!!
 
+    private val photoAdapter = CarPhotoPagerAdapter()
+
+    private val pageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            updatePhotoCounter(position)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCarDetailsBinding.bind(view)
 
         viewModel.start(requireArguments().getString(ARG_CAR_ID).orEmpty())
+
+        binding.photoPager.adapter = photoAdapter
+        binding.photoPager.registerOnPageChangeCallback(pageChangeCallback)
 
         binding.backButton.setOnClickListener { findNavController().popBackStack() }
         binding.favouriteButton.setOnClickListener { viewModel.onFavouriteClicked() }
@@ -53,11 +64,8 @@ class CarDetailsFragment : Fragment(R.layout.fragment_car_details) {
                 binding.descriptionTextView.text =
                     car.description.ifBlank { getString(R.string.details_no_description) }
                 binding.priceTextView.text = getString(R.string.car_price_per_day, car.pricePerDay)
-                binding.carImageView.load(car.imageUrl) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_car_placeholder)
-                    error(R.drawable.ic_car_placeholder)
-                    fallback(R.drawable.ic_car_placeholder)
+                photoAdapter.submitList(car.gallery.ifEmpty { listOf("") }) {
+                    updatePhotoCounter(_binding?.photoPager?.currentItem ?: 0)
                 }
             }
         }
@@ -69,7 +77,17 @@ class CarDetailsFragment : Fragment(R.layout.fragment_car_details) {
         }
     }
 
+    private fun updatePhotoCounter(position: Int) {
+        val currentBinding = _binding ?: return
+        val total = photoAdapter.itemCount
+        currentBinding.photoCounterTextView.isVisible = total > 1
+        currentBinding.photoCounterTextView.text =
+            getString(R.string.details_photo_counter, position + 1, total)
+    }
+
     override fun onDestroyView() {
+        binding.photoPager.unregisterOnPageChangeCallback(pageChangeCallback)
+        binding.photoPager.adapter = null
         _binding = null
         super.onDestroyView()
     }

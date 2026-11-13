@@ -37,10 +37,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         binding.notificationsRow.setOnClickListener {
             showInfoDialog(R.string.settings_notifications, R.string.feature_in_development)
         }
-        binding.connectCarRow.setOnClickListener { navController.navigate(R.id.addCarFragment) }
-        binding.helpRow.setOnClickListener {
-            showInfoDialog(R.string.settings_help, R.string.feature_in_development)
-        }
+        binding.connectCarRow.setOnClickListener { navController.navigate(R.id.add_car_graph) }
+        binding.myCarsRow.setOnClickListener { navController.navigate(R.id.myCarsFragment) }
+        binding.helpRow.setOnClickListener { navController.navigate(R.id.helpFragment) }
         binding.inviteRow.setOnClickListener { shareInvitation() }
         binding.retryButton.setOnClickListener { viewModel.onRetryClicked() }
 

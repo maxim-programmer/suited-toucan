@@ -24,8 +24,12 @@ data class Car(
     val fuelType: FuelType,
     val address: String,
     val description: String,
-    val imageUrl: String?
+    val imageUrl: String?,
+    val photoUrls: List<String> = emptyList()
 ) {
+    val gallery: List<String>
+        get() = photoUrls.ifEmpty { listOfNotNull(imageUrl) }
+
     val title: String
         get() = if (year > 0) "$brand $model $year" else "$brand $model"
 }

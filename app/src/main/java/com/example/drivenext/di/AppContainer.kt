@@ -6,6 +6,7 @@ import com.example.drivenext.data.local.AppDatabase
 import com.example.drivenext.data.remote.SupabaseClientFactory
 import com.example.drivenext.data.repository.AuthRepositoryImpl
 import com.example.drivenext.data.repository.BookingRepositoryImpl
+import com.example.drivenext.data.repository.CarListingRepositoryImpl
 import com.example.drivenext.data.repository.CarRepositoryImpl
 import com.example.drivenext.data.repository.ConnectivityRepositoryImpl
 import com.example.drivenext.data.repository.FavouriteRepositoryImpl
@@ -13,21 +14,25 @@ import com.example.drivenext.data.repository.ProfileRepositoryImpl
 import com.example.drivenext.data.repository.SettingsRepositoryImpl
 import com.example.drivenext.domain.repository.AuthRepository
 import com.example.drivenext.domain.repository.BookingRepository
+import com.example.drivenext.domain.repository.CarListingRepository
 import com.example.drivenext.domain.repository.CarRepository
 import com.example.drivenext.domain.repository.ConnectivityRepository
 import com.example.drivenext.domain.repository.FavouriteRepository
 import com.example.drivenext.domain.repository.ProfileRepository
 import com.example.drivenext.domain.repository.SettingsRepository
+import com.example.drivenext.domain.usecase.AddCarUseCase
 import com.example.drivenext.domain.usecase.CancelBookingUseCase
 import com.example.drivenext.domain.usecase.ChangePasswordUseCase
 import com.example.drivenext.domain.usecase.CompleteOnboardingUseCase
 import com.example.drivenext.domain.usecase.CreateBookingUseCase
+import com.example.drivenext.domain.usecase.DeleteCarUseCase
 import com.example.drivenext.domain.usecase.GetBookingUseCase
 import com.example.drivenext.domain.usecase.GetBookingsUseCase
 import com.example.drivenext.domain.usecase.GetCarUseCase
 import com.example.drivenext.domain.usecase.GetCarsUseCase
 import com.example.drivenext.domain.usecase.GetCurrentProfileUseCase
 import com.example.drivenext.domain.usecase.GetFavouriteCarsUseCase
+import com.example.drivenext.domain.usecase.GetMyCarsUseCase
 import com.example.drivenext.domain.usecase.GetThemeModeUseCase
 import com.example.drivenext.domain.usecase.IsCarFavouriteUseCase
 import com.example.drivenext.domain.usecase.ObserveAuthStateUseCase
@@ -43,6 +48,7 @@ import com.example.drivenext.domain.usecase.ToggleFavouriteUseCase
 import com.example.drivenext.domain.usecase.UpdateAvatarUseCase
 import com.example.drivenext.domain.usecase.UpdateGenderUseCase
 import com.example.drivenext.domain.usecase.UpdateNameUseCase
+import com.example.drivenext.domain.usecase.UploadCarPhotosUseCase
 import com.example.drivenext.presentation.common.ViewModelFactory
 import io.github.jan.supabase.SupabaseClient
 
@@ -68,6 +74,9 @@ class AppContainer(context: Context) {
 
     private val carRepository: CarRepository =
         CarRepositoryImpl { supabaseClient }
+
+    private val carListingRepository: CarListingRepository =
+        CarListingRepositoryImpl(appContext) { supabaseClient }
 
     private val bookingRepository: BookingRepository by lazy {
         BookingRepositoryImpl(database.bookingDao())
@@ -132,6 +141,14 @@ class AppContainer(context: Context) {
     val getThemeModeUseCase = GetThemeModeUseCase(settingsRepository)
 
     val setThemeModeUseCase = SetThemeModeUseCase(settingsRepository)
+
+    val addCarUseCase = AddCarUseCase(authRepository, carListingRepository)
+
+    val uploadCarPhotosUseCase = UploadCarPhotosUseCase(authRepository, carListingRepository)
+
+    val getMyCarsUseCase = GetMyCarsUseCase(authRepository, carRepository)
+
+    val deleteCarUseCase = DeleteCarUseCase(authRepository, carListingRepository)
 
     val viewModelFactory = ViewModelFactory(this)
 }

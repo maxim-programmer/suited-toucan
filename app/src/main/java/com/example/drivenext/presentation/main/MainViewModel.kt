@@ -44,13 +44,25 @@ class MainViewModel(
         viewModelScope.launch { _events.send(MainEvent.OpenSearchResults(normalized)) }
     }
 
-    private fun loadCars() {
+    fun onScreenStarted() {
+        if (_state.value is CarListState.Content) {
+            loadCars(showLoading = false)
+        }
+    }
+
+    private fun loadCars(showLoading: Boolean = true) {
         loadJob?.cancel()
         loadJob = viewModelScope.launch {
-            _state.value = CarListState.Loading
+            if (showLoading) {
+                _state.value = CarListState.Loading
+            }
             getCars()
                 .onSuccess { _state.value = CarListState.Content(it) }
-                .onFailure { _state.value = CarListState.Error(R.string.error_load_data) }
+                .onFailure {
+                    if (showLoading) {
+                        _state.value = CarListState.Error(R.string.error_load_data)
+                    }
+                }
         }
     }
 }

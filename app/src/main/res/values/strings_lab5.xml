@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="host_title">Стать арендодателем</string>
+    <string name="host_description">Узнайте, что включает в себя становление арендодателем в приложении. Присоединяйтесь к тысячам владельцев, зарабатывающих в приложении.</string>
+    <string name="host_how_title">Как это работает</string>
+    <string name="host_how_text">Размещение бесплатное, вы можете устанавливать свои цены, доступность и правила. Получение и возврат автомобиля просты, а оплата производится быстро после каждой поездки.</string>
+    <string name="host_insurance_title">Политика страхования</string>
+    <string name="host_insurance_text">Доступны различные уровни защиты автомобиля на случай непредвиденных ситуаций.</string>
+    <string name="host_support_title">Мы поддержим вас</string>
+    <string name="host_support_text">От проверки арендаторов до поддержки клиентов – вы всегда можете делиться своим автомобилем с уверенностью.</string>
+    <string name="host_start">Начать</string>
+
+    <string name="add_car_title">Добавление автомобиля</string>
+    <string name="add_car_address_label">Где расположен ваш автомобиль?</string>
+    <string name="add_car_address_hint">Введите адрес</string>
+    <string name="add_car_next">Далее</string>
+    <string name="add_car_year_label">Год выпуска</string>
+    <string name="add_car_year_hint">Год</string>
+    <string name="add_car_brand_label">Марка автомобиля</string>
+    <string name="add_car_brand_hint">Марка</string>
+    <string name="add_car_model_label">Модель</string>
+    <string name="add_car_model_hint">Модель</string>
+    <string name="add_car_transmission_hint">Трансмиссия</string>
+    <string name="add_car_transmission_automatic">Автоматическая</string>
+    <string name="add_car_transmission_manual">Механическая</string>
+    <string name="add_car_mileage_hint">Пробег</string>
+    <string name="add_car_price_hint">Стоимость аренды в сутки, ₽</string>
+    <string name="add_car_description_label">Добавьте описание</string>
+    <string name="add_car_description_hint">Пожалуйста, добавьте дополнительную информацию о вашем автомобиле, которая может быть интересна арендатору. Например, о внутреннем оформлении, мощности и других особенностях вашего автомобиля.</string>
+    <string name="add_car_submit">Отправить</string>
+    <string name="add_car_error_year">Укажите корректный год выпуска</string>
+    <string name="add_car_error_price">Укажите корректную стоимость</string>
+    <string name="add_car_error_mileage">Укажите корректный пробег</string>
+
+    <string name="add_car_photos_title">Добавление фотографий</string>
+    <string name="add_car_photos_hint">Нажмите на пустую ячейку, чтобы добавить фото. Всего можно добавить до 5 фотографий, нажатие на фото удаляет его.</string>
+    <string name="add_car_photo_remove_title">Удалить фото?</string>
+    <string name="add_car_photo_remove">Удалить</string>
+    <string name="add_car_camera_more_title">Фото добавлено</string>
+    <string name="add_car_camera_more_message">Сделать ещё один снимок?</string>
+    <string name="add_car_camera_more_yes">Да</string>
+    <string name="add_car_camera_more_no">Готово</string>
+
+    <string name="add_car_success_title">Ваш автомобиль добавлен</string>
+    <string name="add_car_success_message">Поздравляем! Ваш автомобиль одобрен</string>
+    <string name="add_car_success_home">На главную</string>
+    <string name="add_car_success_image_description">Автомобиль добавлен</string>
+
+    <string name="help_close">Закрыть</string>
+    <string name="help_next">Далее</string>
+    <string name="help_done">Понятно</string>
+    <string name="help_title_1">Как арендовать автомобиль</string>
+    <string name="help_description_1">Выберите подходящий автомобиль на главном экране, укажите даты и время аренды и подтвердите бронирование. Вся информация о поездке сохранится в разделе бронирований.</string>
+    <string name="help_title_2">Оплата и страхование</string>
+    <string name="help_description_2">Стоимость рассчитывается за выбранный период аренды. Базовая защита автомобиля уже включена, а владелец может предложить дополнительные уровни страхования.</string>
+    <string name="help_title_3">Мы всегда на связи</string>
+    <string name="help_description_3">Если изменились планы или возник вопрос по автомобилю или оплате, обратитесь в поддержку. Хотите зарабатывать? В настройках можно подключить свой автомобиль.</string>
+</resources>

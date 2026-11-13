@@ -60,17 +60,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/carImageView"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/photoPager"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@color/search_header"
-                    android:contentDescription="@string/car_image_description"
-                    android:scaleType="fitCenter"
+                    android:orientation="horizontal"
                     app:layout_constraintDimensionRatio="3:2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/photoCounterTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_photo_counter"
+                    android:paddingStart="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/photoPager"
+                    app:layout_constraintEnd_toEndOf="@id/photoPager" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -126,6 +143,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/text_primary"
                     android:textSize="12sp" />
+
             </LinearLayout>
 
             <View
@@ -156,6 +174,7 @@
                 android:paddingBottom="16dp"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -193,6 +212,7 @@
             android:minWidth="160dp"
             android:text="@string/car_book"
             app:cornerRadius="6dp" />
+
     </LinearLayout>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -235,6 +255,7 @@
             android:layout_marginTop="16dp"
             android:minWidth="180dp"
             android:text="@string/retry" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

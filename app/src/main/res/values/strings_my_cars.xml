@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_my_cars">Мои автомобили</string>
+    <string name="my_cars_title">Мои автомобили</string>
+    <string name="my_cars_empty">Вы пока не добавили ни одного автомобиля</string>
+    <string name="my_cars_details">Подробнее</string>
+    <string name="my_cars_delete">Удалить</string>
+    <string name="my_cars_delete_title">Удалить автомобиль?</string>
+    <string name="my_cars_delete_message">«%1$s» будет удалён вместе с фотографиями. Это действие нельзя отменить.</string>
+    <string name="my_cars_brand_year">%1$s, %2$d</string>
+    <string name="my_cars_photos_count">Фото: %1$d</string>
+    <string name="details_photo_counter">%1$d / %2$d</string>
+</resources>

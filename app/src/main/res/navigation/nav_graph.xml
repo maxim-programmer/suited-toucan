@@ -206,10 +206,62 @@
             app:argType="long" />
     </fragment>
 
+    <navigation
+        android:id="@+id/add_car_graph"
+        app:startDestination="@id/becomeHostFragment">
+
+        <fragment
+            android:id="@+id/becomeHostFragment"
+            android:name="com.example.drivenext.presentation.addcar.BecomeHostFragment"
+            tools:layout="@layout/fragment_become_host">
+            <action
+                android:id="@+id/action_becomeHost_to_address"
+                app:destination="@id/addCarAddressFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/addCarAddressFragment"
+            android:name="com.example.drivenext.presentation.addcar.AddCarAddressFragment"
+            tools:layout="@layout/fragment_add_car_address">
+            <action
+                android:id="@+id/action_address_to_details"
+                app:destination="@id/addCarDetailsFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/addCarDetailsFragment"
+            android:name="com.example.drivenext.presentation.addcar.AddCarDetailsFragment"
+            tools:layout="@layout/fragment_add_car_details">
+            <action
+                android:id="@+id/action_details_to_photos"
+                app:destination="@id/addCarPhotosFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/addCarPhotosFragment"
+            android:name="com.example.drivenext.presentation.addcar.AddCarPhotosFragment"
+            tools:layout="@layout/fragment_add_car_photos">
+            <action
+                android:id="@+id/action_photos_to_success"
+                app:destination="@id/addCarSuccessFragment"
+                app:popUpTo="@id/add_car_graph"
+                app:popUpToInclusive="true" />
+        </fragment>
+    </navigation>
+
     <fragment
-        android:id="@+id/addCarFragment"
-        android:name="com.example.drivenext.presentation.placeholder.PlaceholderFragment"
-        android:label="@string/screen_add_car"
-        tools:layout="@layout/fragment_placeholder" />
+        android:id="@+id/addCarSuccessFragment"
+        android:name="com.example.drivenext.presentation.addcar.AddCarSuccessFragment"
+        tools:layout="@layout/fragment_add_car_success" />
+
+    <fragment
+        android:id="@+id/myCarsFragment"
+        android:name="com.example.drivenext.presentation.mycars.MyCarsFragment"
+        tools:layout="@layout/fragment_my_cars" />
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.drivenext.presentation.help.HelpFragment"
+        tools:layout="@layout/fragment_help" />
 
 </navigation>
